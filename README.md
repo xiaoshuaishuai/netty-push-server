@@ -27,4 +27,13 @@ __涉及点__:
           --------           -------- 
          | client |         | client | 
           --------           --------  
+          
+          
+**server启动**
+**client1启动连接server**
+**client2启动连接server**
+**消息推送管理界面**
+**server收到消息转发**
+**client接收到消息**
+
                                   

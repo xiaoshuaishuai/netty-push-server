@@ -1,0 +1,9 @@
+.idea/
+/target/surefire-reports/
+/target/maven-status/
+/target/generated-sources/
+/target/test-classes/
+/target/generated-test-sources/
+/target/classes/
+/target/maven-archiver/
+target/
