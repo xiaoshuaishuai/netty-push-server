@@ -1,0 +1,8 @@
+syntax = "proto3";
+option java_package = "com.personal.cable.body.response";
+//响应
+message CableResponse{
+    int32 code = 1;
+    string message = 2;
+    int32 command = 3;
+}

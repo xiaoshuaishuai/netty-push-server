@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Socket</title>
+    <script type="text/javascript">
+        var websocket;
+
+        //如果浏览器支持WebSocket
+        if (window.WebSocket) {
+            websocket = new WebSocket("ws://localhost:9999/ws");  //获得WebSocket对象
+
+            //当有消息过来的时候触发
+            websocket.onmessage = function (event) {
+                console.log(event);
+                var respMessage = document.getElementById("respMessage");
+                respMessage.value = respMessage.value + "\n" + event.data;
+            }
+
+            //连接关闭的时候触发
+            websocket.onclose = function (event) {
+                console.log(event);
+                var respMessage = document.getElementById("respMessage");
+                respMessage.value = respMessage.value + "\n断开连接";
+            }
+
+            //连接打开的时候触发
+            websocket.onopen = function (event) {
+                console.log(event);
+                var respMessage = document.getElementById("respMessage");
+                respMessage.value = "建立连接";
+            }
+
+        } else {
+            alert("浏览器不支持WebSocket");
+        }
+
+        function sendMsg(title, message, author) { //发送消息
+            if (window.WebSocket) {
+                if (websocket.readyState == WebSocket.OPEN) { //如果WebSocket是打开状态
+                    var msg = '{"title":"' + title + '","message":"' + message + '","author":"' + author + '"}';
+                    websocket.send(msg); //send()发送消息
+                }
+            } else {
+                alert('连接被关闭、无法发送消息');
+                return;
+            }
+        }
+    </script>
+</head>
+<body>
+<form onsubmit="return false">
+    <h5>主题</h5>
+    <textarea style="width: 70%; height: 50px;" name="title">马拉松选手被拽停 官方如此回应：这是在保护选手</textarea>
+    <h5>推送内容</h5>
+    <textarea style="width: 70%; height: 200px;" name="message">在赛事终点处，一位工作人员在看到黑人冠军选择准备率先冲线后，突然上前将对方拉住，要求先拍照，黑人冠军选手原本准备慢慢走恢复一下体力，但是被突然拉拽停了下来，此时的他已经没了力气，直接坐在地上。经常跑步的朋友们都知道，在快速跑完之后人都需要一个缓冲的过程，要么自己慢慢走一段路，要么让别人搀扶着你慢走一会儿，让心跳逐渐回到正常跳动频率，最忌讳的就是立马喝水以及躺在地上或者坐在原地休息。万幸的是这名选手并没有身体不适，如果是中国人被如此拉拽，身体素质差一点的可能当场晕倒，严重的极有可能休克。</textarea>
+    <h5>作者</h5>
+    <input type="text" name="author" value="跑跑体育"/>
+    <input type="button" onclick="sendMsg(this.form.title.value,this.form.message.value,this.form.author.value)"
+           value="发送"><br>
+    <hr/>
+    <h3>服务器信息</h3>
+    <textarea style="width: 70%; height: 200px;" id="respMessage"></textarea>
+    <input type="button" value="清空" onclick="javascript:document.getElementById('respMessage').value = ''">
+</form>
+</body>
+</html>

@@ -1,0 +1,26 @@
+syntax = "proto3";
+option java_package = "com.personal.cable.body.request";
+//登录请求
+message LoginRequest {
+    string uid = 1;
+    int64 createTime = 2;
+    int32 command = 3;
+    string uname = 4;
+    string pwd = 5;
+}
+//推送请求
+message PushRequest {
+    string uid = 1;
+    int64 createTime = 2;
+    int32 command = 3;
+    string title = 4;
+    string message = 5;
+    string author = 6;
+}
+//推送请求
+message HeartbeatRequest {
+    string uid = 1;
+    int64 createTime = 2;
+    int32 command = 3;
+    string message = 4;
+}
